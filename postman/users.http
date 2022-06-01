@@ -12,10 +12,10 @@ GET {{url}}/getAllUsers/users
 GET {{url}}/getUser/2
 
 ### POST NEW USER
-POST {{url}}/postUser
+POST {{url}}/postUserSecret
 Content-Type: application/json
 
-{ "name": "Maria", "pass": "1234" }
+{ "name": "Sergio", "pass": "1234" , "role":"Administrador"}
 
 ### DELETE USER BY ID
 DELETE {{url}}/deleteUser/5

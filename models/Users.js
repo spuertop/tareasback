@@ -42,7 +42,7 @@ User.init({
     pass: { type: DataTypes.STRING, allowNull: false },
     role: { 
         type: DataTypes.STRING, 
-        defaultValue: 'Empleado',
+        defaultValue: ()=> 'Empleado',
         validate: {
             isIn: {
                 args: [['Administrador', 'Empleado', 'Usuario']],
@@ -51,13 +51,14 @@ User.init({
         }
     },
     rights: { type: DataTypes.TEXT },
-    active: { type: DataTypes.BOOLEAN, defaultValue: true },
+    //active: { type: DataTypes.BOOLEAN, defaultValue: ()=>true },
     department: { type: DataTypes.STRING },
     bookmarks: { type: DataTypes.TEXT },
 },
-{ sequelize });
+{ sequelize,
+paranoid: true });
 
-//User.sync({ alter: true }); //actualizar sin borrar
+//sequelize.sync({ alter: true }); //actualizar sin borrar
 //User.sync({force: true}) //a la mierda
 
 module.exports = User;
