@@ -1,0 +1,27 @@
+@url = http://localhost:3000/api/users
+
+### GET ALL USERS
+GET {{url}}/getAllUsers/basic
+###
+GET {{url}}/getAllUsers/complete
+
+###
+GET {{url}}/getAllUsers/users
+
+### GET USER BY ID
+GET {{url}}/getUser/2
+
+### POST NEW USER
+POST {{url}}/postUser
+Content-Type: application/json
+
+{ "name": "Maria", "pass": "1234" }
+
+### DELETE USER BY ID
+DELETE {{url}}/deleteUser/5
+
+### UPDATE USER BY ID
+PUT {{url}}/updateUser/1
+Content-Type: application/json
+
+{ "name" : "Adán"}
