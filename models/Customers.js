@@ -1,17 +1,17 @@
 const { DataTypes, Model } = require('sequelize');
-const {sequelize} = require('../database/seq.conn');
+const { sequelize } = require('../database/seq.conn');
 
-class Customer extends Model {}
+class Customer extends Model { }
 
 Customer.init({
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
+    name: { 
+        type: DataTypes.STRING, 
+        allowNull: false, 
+        primaryKey: true },
     },
-    name: { type: DataTypes.STRING, allowNull: false },
-},
-{sequelize,
-paranoid: true});
+    {
+        sequelize,
+        paranoid: true
+    });
 
 module.exports = Customer;

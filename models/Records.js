@@ -4,17 +4,18 @@ const {sequelize} = require('../database/seq.conn');
 class Record extends Model {}
 
 Record.init({
-    centro: DataTypes.STRING,
-    codigoUsuario: DataTypes.STRING,
-    nombreUsuario:DataTypes.STRING,
+    /*WorkPlace.name*/centro: DataTypes.STRING,
+    /*User.id*/codigoUsuario: DataTypes.STRING,
+    /*User.name*/nombreUsuario:DataTypes.STRING,
     empresa: { type: DataTypes.STRING, defaultValue: ()=> 'Moldstock'},
-    cliente: DataTypes.STRING, 
-    codigoServicio:DataTypes.STRING,
-    descripcionServicio: DataTypes.STRING,
-    precioServicio:DataTypes.FLOAT,
+    /*Customer.name*/cliente: DataTypes.STRING, 
+    /*Task.id*/codigoServicio:DataTypes.STRING,
+    /*Task.Description*/descripcionServicio: DataTypes.STRING,
+    /*Task.Price*/precioServicio:DataTypes.FLOAT,
+    /*Task.Department*/
     dia:DataTypes.DATEONLY,
-    tipoDia:{ type: DataTypes.STRING, defaultValue: ()=> 'Laborable'},
-    horaInicio:{ type: DataTypes.DATE },
+    /*Holiday.type*/tipoDia:{ type: DataTypes.STRING, defaultValue: ()=> 'Laborable'},
+    horaInicio: DataTypes.DATE,
     horaFin: DataTypes.DATE,
     duracion:DataTypes.FLOAT,
     importe:DataTypes.FLOAT,

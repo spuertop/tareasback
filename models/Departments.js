@@ -4,12 +4,7 @@ const {sequelize} = require('../database/seq.conn');
 class Department extends Model {}
 
 Department.init({
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    description: { type: DataTypes.STRING, allowNull: false },
+    description: { type: DataTypes.STRING, primaryKey: true },
 },
 {sequelize,
 paranoid: true});

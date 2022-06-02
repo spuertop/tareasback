@@ -12,6 +12,7 @@ Task.init({
     description: { type: DataTypes.STRING, allowNull: false },
     department: DataTypes.STRING,
     price: DataTypes.FLOAT,
+    priceHoliday: DataTypes.FLOAT
 },
 {sequelize,
 paranoid: true});

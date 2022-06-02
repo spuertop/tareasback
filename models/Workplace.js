@@ -4,12 +4,7 @@ const {sequelize} = require('../database/seq.conn');
 class Workplace extends Model {}
 
 Workplace.init({
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    name: { type: DataTypes.STRING, allowNull: false },
+    name: { type: DataTypes.STRING, primaryKey: true },
 },
 {sequelize,
 paranoid: true});
