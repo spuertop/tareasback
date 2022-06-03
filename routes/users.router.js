@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ctrl = require('./users.ctrl')
+const ctrl = require('../routes.ctrl/users.ctrl')
 const auth = require('../middlewares/authentication')
 //ROUTES ON '/api/users'
 

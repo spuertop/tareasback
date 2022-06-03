@@ -1,0 +1,28 @@
+@url = http://localhost:3000/api/workplaces
+
+GET {{url}}/all
+
+###POST
+POST {{url}}/new
+Content-Type: application/json
+
+{ "name": "No DEST", "active": true}
+
+###
+DELETE {{url}}/delete
+Content-Type: application/json
+
+{ "name": "NoDestruido", "active": true, "code": 9}
+
+
+###
+PUT {{url}}/update
+Content-Type: application/json
+
+{ "name": "Mollet", "active": true, "code": 3}
+
+###
+PUT {{url}}/update
+Content-Type: application/json
+
+{ "name": "Mollet desc", "active": false, "code": 3}
