@@ -58,7 +58,7 @@ User.init({
 { sequelize,
 paranoid: true });
 
-//sequelize.sync({ alter: true }); //actualizar sin borrar
+sequelize.sync({ alter: true }); //actualizar sin borrar
 //User.sync({force: true}) //a la mierda
 
 module.exports = User;

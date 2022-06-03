@@ -5,7 +5,7 @@ const auth = require('../middlewares/authentication')
 //ROUTES ON '/api/users'
 
 //router.post('/postUserSecret', ctrl.postNewUser);
-router.use(auth.checkAuth);
+//router.use(auth.checkAuth);
 router.post('/postUser', ctrl.postNewUser);
 
 //Modes Empleados -> basic (id and text), complete (all info)
