@@ -32,11 +32,6 @@ class User extends Model {
 }
 
 User.init({
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
     id_txt: { type: DataTypes.STRING},
     name: { type: DataTypes.STRING, allowNull: false },
     pass: { type: DataTypes.STRING, allowNull: false },
@@ -51,14 +46,14 @@ User.init({
         }
     },
     rights: { type: DataTypes.TEXT },
-    //active: { type: DataTypes.BOOLEAN, defaultValue: ()=>true },
     department: { type: DataTypes.STRING },
     bookmarks: { type: DataTypes.TEXT },
-},
-{ sequelize,
-paranoid: true });
+},{ 
+    sequelize,
+    paranoid: true 
+});
 
-//sequelize.sync({ alter: true }); //actualizar sin borrar
+//User.sync({alter: true})
 //User.sync({force: true}) //a la mierda
 
 module.exports = User;

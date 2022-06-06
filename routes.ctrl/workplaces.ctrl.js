@@ -12,15 +12,14 @@ workPlaceCtrl.getAll = async (req, res) => {
 }
 
 workPlaceCtrl.postnewWorkPlace = async (req, res) => {
-    console.log(req.body) //{name, active}
+    console.log(req.body) //{name}
     let ob = req.body;
     try {
-        await Workplace.create({ name: ob.name });
+        const newWorkPlace = await Workplace.create({ name: ob.name });
         if (!ob.active) {
-            const newPlace = await Workplace.findByPk(ob.name);
-            await Workplace.destroy({ where: { code: newPlace.code }}); //Paranoid destruction
+            await Workplace.destroy({ where: { id: newWorkPlace.id }}); //Paranoid destruction
         }
-        let answer = await Workplace.findByPk(ob.name, { paranoid: false });
+        let answer = await Workplace.findByPk(newWorkPlace.id, { paranoid: false });
         return res.status(200).json(answer);
     } catch (error) {
         return res.status(500).json({ msg: "Error", error: error.toString() })
@@ -31,7 +30,7 @@ workPlaceCtrl.postnewWorkPlace = async (req, res) => {
 workPlaceCtrl.deleteWorkPlace = async (req, res) => {
     let ob = req.body;
     try {
-        let answer = await Workplace.destroy({ where: { code: ob.code }, force: true });
+        let answer = await Workplace.destroy({ where: { id: ob.id }, force: true });
         return res.status(200).json(answer);
     } catch (error) {
         return res.status(500).json({ msg: "Error", error: error.toString() })
@@ -41,13 +40,13 @@ workPlaceCtrl.deleteWorkPlace = async (req, res) => {
 workPlaceCtrl.updateWorkPlace = async (req, res) => {
     let ob = req.body;
     try {
-        await Workplace.restore({ where: { code: ob.code }});
-        await Workplace.update({name: ob.name}, {where:{code: ob.code}});
+        await Workplace.restore({ where: { id: ob.id }});
+        await Workplace.update({name: ob.name}, {where: { id: ob.id }});
 
         if (!ob.active) { //Si petición dice desactivado
-            await Workplace.destroy({ where: { code: ob.code }});
+            await Workplace.destroy({ where: { id: ob.id  }});
         }
-        let answer = await Workplace.findOne({ where: { code: ob.code }, paranoid: false });       
+        let answer = await Workplace.findOne({ where: { id: ob.id }, paranoid: false });       
         return res.status(200).json(answer);
     } catch (error) {
         return res.status(500).json({ msg: "Error", error: error.toString() })

@@ -6,13 +6,13 @@ GET {{url}}/all
 POST {{url}}/new
 Content-Type: application/json
 
-{ "name": "No DEST", "active": true}
+{ "name": "Alcalá", "active":true }
 
 ###
 DELETE {{url}}/delete
 Content-Type: application/json
 
-{ "name": "NoDestruido", "active": true, "code": 9}
+{ "name": "NoDestruido", "active": true, "id": 2}
 
 
 ###

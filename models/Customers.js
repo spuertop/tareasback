@@ -4,12 +4,11 @@ const { sequelize } = require('../database/seq.conn');
 class Customer extends Model { }
 
 Customer.init({
-    name: { type: DataTypes.STRING, primaryKey: true },
-    code: {type: DataTypes.INTEGER,autoIncrement: true},
-    workplace: DataTypes.STRING
+    name: { type: DataTypes.STRING },
     },{
         sequelize,
         paranoid: true
     });
 
+//Customer.sync({alter: true})
 module.exports = Customer;
