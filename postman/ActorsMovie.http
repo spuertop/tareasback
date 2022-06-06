@@ -1,0 +1,34 @@
+@url = http://localhost:3000/test
+
+###
+GET {{url}}/allActors
+
+### Movies of an actor
+GET {{url}}/actor1
+
+### Add movie to an actor
+POST {{url}}/actor1movie2
+
+###
+GET {{url}}/allMovies
+
+###
+GET {{url}}/actorsInMovies
+
+### Post actor in movie
+POST {{url}}/actorInMovie
+Content-Type: application/json
+
+{"ActorId":"1","MovieId":"2"}
+
+###
+POST {{url}}/newMovie
+Content-Type: application/json
+
+{"name": "Peli Dos"}
+
+###
+POST {{url}}/newActor
+Content-Type: application/json
+
+{"name": "Actor Dos"}

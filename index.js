@@ -22,6 +22,7 @@ app.use('/api/users', require('./routes/users.router'));
 app.use('/api/login', require('./routes/login.router'));
 app.use('/api/records', require('./routes/records.router'));
 app.use('/api/workplaces', require('./routes/workplaces.router'));
+app.use('/test', require('./routes/test.routes'))
 
 //Midds para Vue-history
 app.use(history());
