@@ -6,7 +6,7 @@ const auth = require('../middlewares/authentication')
 
 router.get('/all', ctrl.getAll)
 router.post('/new', ctrl.postnewWorkPlace);
-router.delete('/delete', ctrl.deleteWorkPlace);
+router.delete('/delete/:id', ctrl.deleteWorkPlace);
 router.put('/update', ctrl.updateWorkPlace);
 
 
