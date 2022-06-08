@@ -10,6 +10,4 @@ router.delete('/delete/:id', ctrl.deleteWorkPlace);
 router.put('/update', ctrl.updateWorkPlace);
 
 
-
-
 module.exports = router;

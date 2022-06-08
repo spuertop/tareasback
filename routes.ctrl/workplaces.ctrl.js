@@ -8,12 +8,12 @@ workPlaceCtrl.getAll = async (req, res) => {
         return res.status(200).json(allWorkPlaces);
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ msg: "Error", error: error.toString() })
+        return res.status(403).json({ msg: "Error", error: error.toString() })
     }
 }
 
 workPlaceCtrl.postnewWorkPlace = async (req, res) => {
-    console.log(req.body) //{name}
+    //console.log(req.body) //{name}
     let ob = req.body;
     try {
         const newWorkPlace = await Workplace.create({ name: ob.name });
@@ -23,7 +23,7 @@ workPlaceCtrl.postnewWorkPlace = async (req, res) => {
         let answer = await Workplace.findByPk(newWorkPlace.id, { paranoid: false });
         return res.status(200).json(answer);
     } catch (error) {
-        return res.status(500).json({ msg: "Error", error: error.toString() })
+        return res.status(403).json({ msg: "Error", error: error.toString() })
     }
 }
 
@@ -36,7 +36,7 @@ workPlaceCtrl.deleteWorkPlace = async (req, res) => {
         return res.status(200).json(answer);
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ msg: "Error", error: error.toString() })
+        return res.status(403).json({ msg: "Error", error: error.toString() })
     }
 }
 
@@ -53,7 +53,7 @@ workPlaceCtrl.updateWorkPlace = async (req, res) => {
         let answer = await Workplace.findOne({ where: { id: ob.id }, paranoid: false });       
         return res.status(200).json(answer);
     } catch (error) {
-        return res.status(500).json({ msg: "Error", error: error.toString() })
+        return res.status(403).json({ msg: "Error", error: error.toString() })
     }
 }
 
