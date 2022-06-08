@@ -7,6 +7,7 @@ workPlaceCtrl.getAll = async (req, res) => {
         const allWorkPlaces = await Workplace.findAll({ paranoid: false });
         return res.status(200).json(allWorkPlaces);
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ msg: "Error", error: error.toString() })
     }
 }
