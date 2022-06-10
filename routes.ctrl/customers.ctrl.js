@@ -1,12 +1,17 @@
 let customerCtrl = {};
 const Customers = require('../models/Customers');
+const Workplace = require('../models/Workplace');
 
 //router.get('/all', ctrl.getAll)
 customerCtrl.getAll = async (req, res) => {
     //Get all incluyendo soft-deleted
     try {
-        const allWorkPlaces = await Customers.findAll({ paranoid: false });
-        return res.status(200).json(allWorkPlaces);
+        const allCustomers = await Customers.findAll({ 
+            attributes: ['id', 'name', 'deletedAt'], 
+            include: [{model:Workplace, attributes: ['id', 'name', 'deletedAt'], through: {attributes: []}}],
+            paranoid: false 
+        });
+        return res.status(200).json(allCustomers);
     } catch (error) {
         console.log(error)
         return res.status(403).json({ msg: "Error", error: error.toString() })
@@ -18,13 +23,13 @@ customerCtrl.postnewCustomer = async (req, res) => {
     console.log(req.body) //{name}
     let ob = req.body;
     try {
-        const newWorkPlace = await Customers.create({ name: ob.name });
+        const newCostumer = await Customers.create({ name: ob.name });
         if (!ob.deletedAt) {
             await Customers
-        .destroy({ where: { id: newWorkPlace.id }}); //Paranoid destruction
+        .destroy({ where: { id: newCostumer.id }}); //Paranoid destruction
         }
         let answer = await Customers
-    .findByPk(newWorkPlace.id, { paranoid: false });
+    .findByPk(newCostumer.id, { paranoid: false });
         return res.status(200).json(answer);
     } catch (error) {
         return res.status(403).json({ msg: "Error", error: error.toString() })
@@ -47,10 +52,31 @@ customerCtrl.deleteCustomer = async (req, res) => {
 //router.put('/update', ctrl.updateCustomer);
 customerCtrl.updateCustomer = async (req, res) => {
     let ob = req.body;
-    console.log(ob)
     try {
         await Customers.restore({ where: { id: ob.id }});
         await Customers.update({name: ob.name}, {where: { id: ob.id }});
+        let customer = await Customers.findByPk(ob.id);
+        
+        //New Workplaces
+        let frontWorkPlacesList = [];
+        ob.workplaces.forEach(item => frontWorkPlacesList.push(item.id));
+
+        //Old Workplaces
+        let workplacesOfCustore = await customer.getWorkplaces();
+        let backWorkPlacesList = [];
+        workplacesOfCustore.forEach(item => backWorkPlacesList.push(item.dataValues.id))
+
+        //Add new workplaces
+        for(let i = 0; i < ob.workplaces.length; i++){
+            await customer.addWorkplace(await Workplace.findByPk(ob.workplaces[i].id));
+            //await answer.removeCustomer(await Customer.findByPk(1))
+        }
+        //Delete absent workplaces
+        for(let i = 0; i < backWorkPlacesList.length; i++){
+            if(!frontWorkPlacesList.includes(backWorkPlacesList[i])){
+                await customer.removeWorkplace(await Workplace.findByPk(backWorkPlacesList[i]))
+            }
+        }
 
         if (!ob.deletedAt) { //Si petición dice desactivado
             await Customers.destroy({ where: { id: ob.id  }});
@@ -58,6 +84,7 @@ customerCtrl.updateCustomer = async (req, res) => {
         let answer = await Customers.findOne({ where: { id: ob.id }, paranoid: false });       
         return res.status(200).json(answer);
     } catch (error) {
+        console.log(error)
         return res.status(403).json({ msg: "Error", error: error.toString() })
     }
 }

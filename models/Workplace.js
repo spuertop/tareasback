@@ -16,5 +16,5 @@ Workplace.init({
         paranoid: true
 });
 
-//Workplace.sync({force: true})
+//Workplace.sync({alter: true})
 module.exports = Workplace;

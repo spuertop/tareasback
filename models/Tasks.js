@@ -4,10 +4,8 @@ const {sequelize} = require('../database/seq.conn');
 class Task extends Model {}
 
 Task.init({
-    description: { type: DataTypes.STRING, allowNull: false },
-    department: DataTypes.STRING,
+    description: { type: DataTypes.STRING, allowNull: false, unique: true },
     price: DataTypes.FLOAT,
-    priceHoliday: DataTypes.FLOAT
 },{
     sequelize,
     paranoid: true

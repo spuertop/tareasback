@@ -1,10 +1,15 @@
 let workPlaceCtrl = {};
 const Workplace = require('../models/Workplace');
+const Customer = require('../models/Customers');
 
 workPlaceCtrl.getAll = async (req, res) => {
     //Get all incluyendo soft-deleted
     try {
-        const allWorkPlaces = await Workplace.findAll({ paranoid: false });
+        const allWorkPlaces = await Workplace.findAll({
+            attributes: ['id', 'name', 'deletedAt'], 
+            include: [{model:Customer, attributes: ['id', 'name', 'deletedAt'], through: {attributes: []}}],
+            paranoid: false 
+        });
         return res.status(200).json(allWorkPlaces);
     } catch (error) {
         console.log(error)
@@ -51,8 +56,14 @@ workPlaceCtrl.updateWorkPlace = async (req, res) => {
             await Workplace.destroy({ where: { id: ob.id  }});
         }
         let answer = await Workplace.findOne({ where: { id: ob.id }, paranoid: false });       
+
+        //start test
+        //await answer.addCustomer(await Customer.findByPk(1))
+        //end test
+
         return res.status(200).json(answer);
     } catch (error) {
+        console.log(error)
         return res.status(403).json({ msg: "Error", error: error.toString() })
     }
 }
